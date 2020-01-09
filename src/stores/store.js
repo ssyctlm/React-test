@@ -26,89 +26,76 @@ const initialState = {
     ]
 };
 
-//Action Createors
+//Actions
 const DELETE = "DELETE";
 const INCRE = "INCRE";
 const DECRE = "DECRE";
 const RESET = "RESET";
 
-const actionDelete = (propCounterId) => {
+//Action creators
+const actionDelete = propCounterId => {
     return {
         type: DELETE,
         id: propCounterId
-    }
+    };
 };
-const actionIncrement = (propCounter) => {
+const actionIncrement = propCounter => {
     return {
         type: INCRE,
         props: propCounter
-    }
+    };
 };
-const actionDecrement = (propCounter) => {
+const actionDecrement = propCounter => {
     return {
         type: DECRE,
         props: propCounter
-    }
+    };
 };
 const actionReset = () => {
     return {
         type: RESET
-    }
+    };
 };
-
 
 // Reducers
 const reducer = (state = initialState, action) => {
+    let counters
+    let idx
     switch (action.type) {
-
         case INCRE:
-            const counters = state.counters.slice();
-            const idx = counters.indexOf(action.props);
+            counters = state.counters.slice();
+            idx = counters.indexOf(action.props);
             counters[idx].value += 1;
             return {
+                ...state,
                 counters: counters
             };
 
         case DECRE:
-            const counters = state.counters.slice();
-            const idx = counters.indexOf(action.props);
+            let counters = state.counters.slice();
+            idx = counters.indexOf(action.props);
             counters[idx].value += 1;
             return {
+                ...state,
                 counters: counters
             };
 
         case DELETE:
-            const counters = state.counters.filter(
+            counters = state.counters.filter(
                 counter => counter.id !== action.id
             );
             return {
+                ...state,
                 counters: counters
             };
 
-
-
         default:
             return state;
-
     }
-
 };
 
-const reducer = (state = [123], action) => {
-    switch (action.type) {
-        case "test":
-            return [...state, action.payload];
-        default:
-            return state;
-    }
-}
-const store = createStore(reducer)
-store.dispatch({
-    type: "test",
-    payload: "some info"
-})
-console.log(store.getState())
+
+const store = createStore(reducer);
 
 
-
-export default store
+export default store;
