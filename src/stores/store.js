@@ -2,7 +2,12 @@ import {
     createStore,
     combineReducers
 } from "redux";
-
+import {
+    DELETE,
+    INCRE,
+    DECRE,
+    RESET
+} from "./actionName"
 //redux part
 
 //initialize the state
@@ -26,32 +31,28 @@ const initialState = {
     ]
 };
 
-//Actions
-const DELETE = "DELETE";
-const INCRE = "INCRE";
-const DECRE = "DECRE";
-const RESET = "RESET";
+
 
 //Action creators
-const actionDelete = propCounterId => {
+export const actionDelete = propCounterId => {
     return {
         type: DELETE,
         id: propCounterId
     };
 };
-const actionIncrement = propCounter => {
+export const actionIncrement = propCounter => {
     return {
         type: INCRE,
         props: propCounter
     };
 };
-const actionDecrement = propCounter => {
+export const actionDecrement = propCounter => {
     return {
         type: DECRE,
         props: propCounter
     };
 };
-const actionReset = () => {
+export const actionReset = () => {
     return {
         type: RESET
     };
@@ -59,12 +60,11 @@ const actionReset = () => {
 
 // Reducers
 const reducer = (state = initialState, action) => {
-    let counters
-    let idx
+
     switch (action.type) {
         case INCRE:
-            counters = state.counters.slice();
-            idx = counters.indexOf(action.props);
+            var counters = state.counters.slice();
+            var idx = counters.indexOf(action.props);
             counters[idx].value += 1;
             return {
                 ...state,
@@ -72,25 +72,37 @@ const reducer = (state = initialState, action) => {
             };
 
         case DECRE:
-            let counters = state.counters.slice();
-            idx = counters.indexOf(action.props);
-            counters[idx].value += 1;
+            var counters = state.counters.slice();
+            var idx = counters.indexOf(action.props);
+            if (counters[idx].value) {
+                counters[idx].value -= 1;
+            }
+
             return {
                 ...state,
                 counters: counters
             };
 
         case DELETE:
-            counters = state.counters.filter(
+            var counters = state.counters.filter(
                 counter => counter.id !== action.id
             );
             return {
                 ...state,
                 counters: counters
             };
+        case RESET:
+            var counters = state.counters.map(ct => {
+                ct.value = 0
+                return ct
+            })
+            return {
+                ...state,
+                counters: counters
+            }
 
-        default:
-            return state;
+            default:
+                return state;
     }
 };
 
