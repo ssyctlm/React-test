@@ -5,7 +5,8 @@ import NavBar from './component/navbar'
 import Counters from './component/counters.jsx'
 // import store from './stores/store'
 import { connect } from 'react-redux'
-import { DELETE, INCRE, DECRE, RESET } from './stores/actionName'
+import { DELETE, INCRE, DECRE, RESET, ADD } from './stores/actionName'
+import { actionAdd } from './stores/store'
 class App extends React.Component {
   // //LOCAL STATE
   // state = {
@@ -36,7 +37,7 @@ class App extends React.Component {
     // Ajax call
     console.log('App-Mounted')
   }
-
+  // // React local state handleFunctions
   // handleDelete = propCounterId => {
   //   // console.log("event handler called", counterId);
   //   const counters = this.props.state.counters.filter(
@@ -101,7 +102,11 @@ class App extends React.Component {
           }
           onDelete = {
             this.props.handleDelete
+          }
+          onAdd = {
+            this.props.handleAdd
           }/>
+
         </main >
 
       </React.Fragment>
@@ -152,6 +157,9 @@ const mapDispatchToProps = dispatch => {
     },
     handleReset: () => {
       dispatch(actionReset())
+    },
+    handleAdd: () => {
+      dispatch(actionAdd)
     }
   }
 }
