@@ -3,19 +3,9 @@ import React from 'react'
 import './App.css'
 import NavBar from './component/navbar'
 import Counters from './component/counters.jsx'
-import store from './stores/store'
-import {
-  Provider,
-  connect
-} from 'react-redux';
-
-import {
-  DELETE,
-  INCRE,
-  DECRE,
-  RESET
-} from './stores/actionName'
-
+// import store from './stores/store'
+import { connect } from 'react-redux'
+import { DELETE, INCRE, DECRE, RESET } from './stores/actionName'
 class App extends React.Component {
   // //LOCAL STATE
   // state = {
@@ -37,13 +27,13 @@ class App extends React.Component {
   //     }
   //   ]
   // }
-  constructor(props) {
+  constructor (props) {
     super(props)
     console.log('App-Counstructor')
   }
 
-  componentDidMount() {
-    //Ajax call
+  componentDidMount () {
+    // Ajax call
     console.log('App-Mounted')
   }
 
@@ -86,69 +76,63 @@ class App extends React.Component {
   //     counters
   //   })
   // }
-  render() {
+  render () {
     console.log('App-Rendered')
     console.log(this.props)
-    return ( < React.Fragment >
-      <
-      NavBar total = {
-        this.props.state.counters
-        .filter(counter => counter.value > 0)
-        .reduce((a, counter) => a + counter.value, 0)
-      }
-      /> <
-      main className = "container" >
-      <
-      Counters counters = {
-        this.props.state.counters
-      }
-      onReset = {
-        this.props.handleReset
-      }
-      onIncrement = {
-        this.props.handleIncrement
-      }
-      onDecrement = {
-        this.props.handleDecrement
-      }
-      onDelete = {
-        this.props.handleDelete
-      }
-      /> </main > < /React.Fragment>
+    return (
+      <React.Fragment>
+        <NavBar total = {
+          this.props.state.counters
+            .filter(counter => counter.value > 0)
+            .reduce((a, counter) => a + counter.value, 0)
+        }/>
+        <main className = "container" >
+          <Counters counters = {
+            this.props.state.counters
+          }
+          onReset = {
+            this.props.handleReset
+          }
+          onIncrement = {
+            this.props.handleIncrement
+          }
+          onDecrement = {
+            this.props.handleDecrement
+          }
+          onDelete = {
+            this.props.handleDelete
+          }/>
+        </main >
+
+      </React.Fragment>
     )
   }
 }
 
-
-//Action creators
+// Action creators
 export const actionDelete = propCounterId => {
   return {
     type: DELETE,
     id: propCounterId
-  };
-};
+  }
+}
 export const actionIncrement = propCounter => {
   return {
     type: INCRE,
     props: propCounter
-  };
-};
+  }
+}
 export const actionDecrement = propCounter => {
   return {
     type: DECRE,
     props: propCounter
-  };
-};
+  }
+}
 export const actionReset = () => {
   return {
     type: RESET
-  };
-};
-
-
-
-
-
+  }
+}
 
 const mapStateToProps = state => {
   return {
@@ -171,8 +155,5 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
-
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
