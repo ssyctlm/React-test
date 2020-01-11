@@ -71,7 +71,8 @@ export const actionAddAsyn = (ID) => {
 export const actionAdd = () => {
   return dispatch => {
     console.log('thunk')
-    const ID = initialState.counters.length + 2
+    const state = store.getState()
+    const ID = state.counters.length + 1
     dispatch(actionAddAsyn(ID))
   }
 }

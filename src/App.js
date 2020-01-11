@@ -5,8 +5,8 @@ import NavBar from './component/navbar'
 import Counters from './component/counters.jsx'
 // import store from './stores/store'
 import { connect } from 'react-redux'
-import { DELETE, INCRE, DECRE, RESET, ADD } from './stores/actionName'
-import { actionAdd } from './stores/store'
+
+import { actionAdd, actionDelete, actionIncrement, actionDecrement, actionReset } from './stores/store'
 class App extends React.Component {
   // //LOCAL STATE
   // state = {
@@ -28,12 +28,12 @@ class App extends React.Component {
   //     }
   //   ]
   // }
-  constructor (props) {
+  constructor(props) {
     super(props)
     console.log('App-Counstructor')
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // Ajax call
     console.log('App-Mounted')
   }
@@ -77,35 +77,35 @@ class App extends React.Component {
   //     counters
   //   })
   // }
-  render () {
+  render() {
     console.log('App-Rendered')
     console.log(this.props)
     return (
       <React.Fragment>
-        <NavBar total = {
+        <NavBar total={
           this.props.state.counters
             .filter(counter => counter.value > 0)
             .reduce((a, counter) => a + counter.value, 0)
-        }/>
-        <main className = "container" >
-          <Counters counters = {
+        } />
+        <main className="container" >
+          <Counters counters={
             this.props.state.counters
           }
-          onReset = {
-            this.props.handleReset
-          }
-          onIncrement = {
-            this.props.handleIncrement
-          }
-          onDecrement = {
-            this.props.handleDecrement
-          }
-          onDelete = {
-            this.props.handleDelete
-          }
-          onAdd = {
-            this.props.handleAdd
-          }/>
+            onReset={
+              this.props.handleReset
+            }
+            onIncrement={
+              this.props.handleIncrement
+            }
+            onDecrement={
+              this.props.handleDecrement
+            }
+            onDelete={
+              this.props.handleDelete
+            }
+            onAdd={
+              this.props.handleAdd
+            } />
 
         </main >
 
@@ -114,30 +114,30 @@ class App extends React.Component {
   }
 }
 
-// Action creators
-export const actionDelete = propCounterId => {
-  return {
-    type: DELETE,
-    id: propCounterId
-  }
-}
-export const actionIncrement = propCounter => {
-  return {
-    type: INCRE,
-    props: propCounter
-  }
-}
-export const actionDecrement = propCounter => {
-  return {
-    type: DECRE,
-    props: propCounter
-  }
-}
-export const actionReset = () => {
-  return {
-    type: RESET
-  }
-}
+// // Action creators
+// export const actionDelete = propCounterId => {
+//   return {
+//     type: DELETE,
+//     id: propCounterId
+//   }
+// }
+// export const actionIncrement = propCounter => {
+//   return {
+//     type: INCRE,
+//     props: propCounter
+//   }
+// }
+// export const actionDecrement = propCounter => {
+//   return {
+//     type: DECRE,
+//     props: propCounter
+//   }
+// }
+// export const actionReset = () => {
+//   return {
+//     type: RESET
+//   }
+// }
 
 const mapStateToProps = state => {
   return {
@@ -159,7 +159,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionReset())
     },
     handleAdd: () => {
-      dispatch(actionAdd)
+      dispatch(actionAdd())
     }
   }
 }
