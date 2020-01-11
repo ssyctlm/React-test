@@ -1,7 +1,7 @@
 import React from 'react'
 import Counter from './counter'
 class Counters extends React.Component {
-  render () {
+  render() {
     console.log('Counters-Rendered')
     return (
       <div>
