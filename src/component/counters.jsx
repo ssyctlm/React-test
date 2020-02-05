@@ -1,6 +1,9 @@
 import React from "react";
 import Counter from "./counter";
 class Counters extends React.Component {
+  componentDidMount(){
+    console.log(`counter Didmount ${this.props.counters}`)
+  }
 
 
   render() {

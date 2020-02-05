@@ -24,6 +24,7 @@ class App extends React.Component {
   componentDidMount() {
     //Ajax call
     console.log("App-Mounted")
+    console.log(this.state.counters)
   }
 
   handleDelete = propCounterId => {
